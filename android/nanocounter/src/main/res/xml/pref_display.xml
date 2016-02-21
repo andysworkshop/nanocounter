@@ -1,0 +1,60 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <SwitchPreference
+    android:defaultValue="true"
+    android:key="FREQUENCY_GROUPS_FLAG"
+    android:summary="@string/pref_description_digit_groups"
+    android:title="@string/pref_title_digit_groups"/>
+
+  <EditTextPreference
+    android:defaultValue="0"
+    android:inputType="number"
+    android:key="FREQUENCY_DECIMAL_PLACES"
+    android:maxLines="1"
+    android:selectAllOnFocus="true"
+    android:singleLine="true"
+    android:title="@string/pref_title_frequency_decimal_places"/>
+
+  <ListPreference
+    android:defaultValue="1"
+    android:entries="@array/pref_frequency_divider_titles"
+    android:entryValues="@array/pref_frequency_divider_values"
+    android:key="FREQUENCY_DIVIDER"
+    android:negativeButtonText="@null"
+    android:positiveButtonText="@null"
+    android:title="@string/pref_title_frequency_units"/>
+
+  <SwitchPreference
+    android:defaultValue="true"
+    android:key="IDEAL_FREQUENCY_FLAG"
+    android:summary="@string/pref_description_ideal_frequency_flag"
+    android:title="@string/pref_title_ideal_frequency_flag"/>
+
+  <EditTextPreference
+    android:defaultValue="8000000"
+    android:inputType="number"
+    android:key="IDEAL_FREQUENCY"
+    android:maxLines="1"
+    android:selectAllOnFocus="true"
+    android:singleLine="true"
+    android:title="@string/pref_title_ideal_frequency"/>
+
+  <ListPreference
+    android:defaultValue="0"
+    android:entries="@array/pref_ideal_frequency_source_titles"
+    android:entryValues="@array/pref_ideal_frequency_source_values"
+    android:key="IDEAL_FREQUENCY_SOURCE"
+    android:negativeButtonText="@null"
+    android:positiveButtonText="@null"
+    android:title="@string/pref_title_ideal_frequency_source"/>
+
+  <EditTextPreference
+    android:defaultValue="3600"
+    android:inputType="number"
+    android:key="MAX_CHART_VALUES"
+    android:maxLines="1"
+    android:selectAllOnFocus="true"
+    android:singleLine="true"
+    android:title="@string/pref_title_max_chart_values"/>
+
+</PreferenceScreen>

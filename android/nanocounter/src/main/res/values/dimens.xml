@@ -1,0 +1,21 @@
+<resources>
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+
+  <dimen name="table_text">25dp</dimen>
+  <dimen name="frequency_text">85dp</dimen>
+  <dimen name="frequency_units">40dp</dimen>
+
+  <dimen name="freq_text_left_margin">20dp</dimen>
+  <dimen name="target_freq_box_margin">20dp</dimen>
+  <dimen name="target_freq_font_size">20dp</dimen>
+
+  <dimen name="last_change_icon_2_margin">25dp</dimen>
+  <dimen name="last_change_icon_3_margin">50dp</dimen>
+  <dimen name="last_change_icon_4_margin">75dp</dimen>
+  <dimen name="last_change_icon_5_margin">100dp</dimen>
+  <dimen name="last_change_icon_6_margin">125dp</dimen>
+
+</resources>

@@ -1,0 +1,582 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:keepScreenOn="true"
+  android:fitsSystemWindows="true"
+  tools:context="uk.me.andybrown.nanocounter.MainActivity">
+
+  <android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/AppTheme.AppBarOverlay">
+
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="?attr/colorPrimary"
+      app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="?android:attr/actionBarSize">
+
+    <!--                    -->
+    <!-- front panel layout -->
+    <!--                    -->
+
+    <RelativeLayout
+      android:id="@+id/main_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <!-- frequency text -->
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/freq_text_left_margin"
+        android:textSize="@dimen/frequency_text"
+        android:textColor="@color/frequency_text_nocal"
+        android:id="@+id/frequency_text"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/frequency_text"
+        android:textSize="@dimen/frequency_units"
+        android:layout_alignBaseline="@+id/frequency_text"
+        android:layout_marginLeft="5dp"
+        android:textColor="@color/frequency_units"
+        android:id="@+id/frequency_units"/>
+
+      <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="right"
+        android:layout_marginRight="@dimen/target_freq_box_margin"
+        android:layout_marginTop="@dimen/target_freq_box_margin"
+        android:id="@+id/target_frequency_holder"
+        android:layout_toRightOf="@id/frequency_units">
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@color/frequency_text"
+          android:id="@+id/target_frequency"
+          android:textSize="@dimen/target_freq_font_size"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/target_frequency_offset"
+          android:layout_below="@id/target_frequency"
+          android:textColor="@color/frequency_text"
+          android:textSize="@dimen/target_freq_font_size"/>
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/target_frequency_compensate"
+          android:layout_below="@id/target_frequency_offset"
+          android:textColor="@color/frequency_text"
+          android:textSize="@dimen/target_freq_font_size"/>
+
+      </RelativeLayout>
+
+      <!-- calibration/statistics area -->
+
+      <FrameLayout
+        android:id="@+id/center_frame"
+        android:layout_below="@+id/frequency_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
+
+        <!-- calibration area -->
+
+        <LinearLayout
+          android:id="@+id/calibration_frame"
+          android:orientation="horizontal"
+          android:visibility="gone"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content">
+
+          <!-- new calibration -->
+
+          <RelativeLayout
+            android:layout_marginRight="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+              android:id="@+id/calibrate_title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="16dp"
+              android:text="@string/calibrate"/>
+
+            <TableLayout
+              android:layout_below="@id/calibrate_title"
+              android:id="@+id/calibrate_controls"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+              <!-- offset -->
+
+              <TableRow>
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Offset:"
+                  android:id="@+id/calibrate_offset_text"/>
+
+                <EditText
+                  android:id="@+id/calibrate_text"
+                  android:layout_height="wrap_content"
+                  android:layout_width="100dp"
+                  android:inputType="numberDecimal"
+                  android:singleLine="true"/>
+
+                <Button
+                  android:layout_below="@+id/calibrate_title"
+                  android:layout_toRightOf="@+id/calibrate_text"
+                  android:text="Auto"
+                  android:onClick="onClickAutoCalibration"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              </TableRow>
+
+              <TableRow>
+                <!-- temperature -->
+
+                <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Temperature:"
+                  android:id="@+id/calibrate_temperature_label"
+                  android:layout_below="@+id/calibrate_offset_text"/>
+
+                <EditText
+                  android:layout_below="@+id/calibrate_offset_text"
+                  android:layout_toRightOf="@+id/calibrate_temperature_label"
+                  android:id="@+id/calibrate_temperature_text"
+                  android:layout_width="100dp"
+                  android:inputType="numberDecimal"
+                  android:singleLine="true"
+                  android:layout_height="wrap_content"/>
+
+                <Button
+                  android:layout_below="@+id/calibrate_offset_text"
+                  android:layout_toRightOf="@+id/calibrate_temperature_text"
+                  android:id="@+id/calibrate_auto_temperature"
+                  android:text="Auto"
+                  android:onClick="onClickAutoCalibrationTemperature"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"/>
+              </TableRow>
+            </TableLayout>
+
+            <Button
+              android:layout_below="@+id/calibrate_controls"
+              android:id="@+id/calibrate_save"
+              android:layout_width="wrap_content"
+              android:text="Save"
+              android:onClick="onClickSaveCalibration"
+              android:layout_height="wrap_content"/>
+
+            <Button
+              android:layout_below="@+id/calibrate_controls"
+              android:layout_toRightOf="@+id/calibrate_save"
+              android:id="@+id/calibrate_close"
+              android:onClick="onClickCloseCalibration"
+              android:layout_width="wrap_content"
+              android:text="Close"
+              android:layout_height="wrap_content"/>
+
+          </RelativeLayout>
+
+          <!-- calibration history -->
+
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/calibration_holder">
+
+            <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:id="@+id/calibration_history">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="Calibration history"/>
+
+              <ListView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10dp"
+                android:id="@+id/calibration_list">
+              </ListView>
+
+            </LinearLayout>
+
+          </RelativeLayout>
+
+        </LinearLayout>
+
+        <!-- statistics tables holder -->
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/frequency_text"
+          android:id="@+id/table_holder"
+          android:visibility="visible"
+          android:orientation="horizontal">
+
+          <!-- left table -->
+
+          <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".50"
+            android:layout_marginRight="20dp"
+            android:id="@+id/left_table">
+
+            <!-- Last -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg1">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Last:"/>
+
+              <include layout="@layout/last_changes"/>
+
+            </TableRow>
+
+            <!-- Samples -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg2">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Samples:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/samples_text"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+            <!-- Minimum -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg1">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Minimum:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/minimum_text"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+            <!-- Maximum-->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg2">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Maximum:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/maximum_text"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+            <!-- Average -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg1">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Average:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/average_text"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+          </TableLayout> <!-- left table -->
+
+          <!-- right table -->
+
+          <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/right_table"
+            android:layout_weight=".50"
+            android:layout_toRightOf="@+id/left_table">
+
+            <!-- gate time -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg1">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Gate time:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:id="@+id/gate_time_value"/>
+
+            </TableRow>
+
+            <!-- Ref source -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg2">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Reference source:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reference_frequency_source"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+            <!-- Ref filter -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg1">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Reference filter:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/reference_filter"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+            <!-- Sample filter -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg2">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="Sample filter:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sample_filter"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+            <!-- temperature -->
+
+            <TableRow
+              android:layout_height="match_parent"
+              android:layout_width="match_parent"
+              android:background="@color/table_bg1">
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"
+                android:paddingRight="20dp"
+                android:text="MCU temperature:"/>
+
+              <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/temperature_text"
+                android:textSize="@dimen/table_text"
+                android:textColor="@color/table_text"/>
+
+            </TableRow>
+
+          </TableLayout> <!-- left table -->
+
+        </LinearLayout> <!-- tables holder -->
+      </FrameLayout>
+
+      <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/center_frame"
+        android:id="@+id/chart_layout"
+        android:layout_margin="20dp"/>
+
+    </RelativeLayout> <!-- main layout -->
+
+    <!--                   -->
+    <!-- connecting layout -->
+    <!--                   -->
+
+    <LinearLayout
+      android:id="@+id/connecting_frame"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:visibility="gone"
+      android:orientation="vertical">
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connecting_title"
+        android:textSize="30dp"
+        android:textColor="#000000"/>
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connecting_status"
+        android:textSize="15dp"
+        android:textColor="#404040"
+        android:text=""/>
+
+      <LinearLayout
+        android:visibility="visible"
+        android:id="@+id/connecting_icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.FloatingActionButton
+          android:id="@+id/retry_connection_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginRight="20dp"
+          android:onClick="onClickRetryConnection"
+          android:src="@drawable/retry"/>
+
+        <android.support.design.widget.FloatingActionButton
+          android:id="@+id/settings_icon"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:onClick="onClickSettingsIcon"
+          android:src="@drawable/settings"/>
+      </LinearLayout>
+
+      <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/connecting_progress"
+        android:indeterminate="true"/>
+
+    </LinearLayout>
+
+  </FrameLayout>
+
+</android.support.design.widget.CoordinatorLayout>

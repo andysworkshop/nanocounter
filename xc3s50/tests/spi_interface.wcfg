@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tmp/spi_interface_tb.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="constants" />
+            <top_module name="numeric_std" />
+            <top_module name="spi_interface_tb" />
+            <top_module name="std_logic_1164" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="11" />
+   <wvobject fp_name="/spi_interface_tb/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ff0000</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/ncs" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">ncs</obj_property>
+      <obj_property name="ObjectShortName">ncs</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/mosi" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">mosi</obj_property>
+      <obj_property name="ObjectShortName">mosi</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/miso" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">miso</obj_property>
+      <obj_property name="ObjectShortName">miso</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/gate_counter_limit_out_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">gate_counter_limit_out_i[27:0]</obj_property>
+      <obj_property name="ObjectShortName">gate_counter_limit_out_i[27:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/debug_i" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">debug_i</obj_property>
+      <obj_property name="ObjectShortName">debug_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/uut/bit_counter_i" type="other" db_ref_id="1">
+      <obj_property name="ElementShortName">bit_counter_i</obj_property>
+      <obj_property name="ObjectShortName">bit_counter_i</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/uut/input_bits_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">input_bits_i[63:0]</obj_property>
+      <obj_property name="ObjectShortName">input_bits_i[63:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/uut/output_bits_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">output_bits_i[63:0]</obj_property>
+      <obj_property name="ObjectShortName">output_bits_i[63:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/ref_counter_out_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ref_counter_out_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ref_counter_out_i[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/spi_interface_tb/sample_counter_out_i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">sample_counter_out_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">sample_counter_out_i[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>

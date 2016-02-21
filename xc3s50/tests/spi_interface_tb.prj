@@ -1,0 +1,3 @@
+vhdl work "../constants.vhdl"
+vhdl work "../spi_interface.vhdl"
+vhdl work "spi_interface_tb.vhdl"

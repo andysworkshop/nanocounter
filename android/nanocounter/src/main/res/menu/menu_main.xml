@@ -1,0 +1,49 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="uk.me.andybrown.nanocounter.MainActivity">
+
+  <item
+    android:id="@+id/action_settings"
+    android:orderInCategory="100"
+    android:title="@string/action_settings"
+    app:showAsAction="never"
+    android:onClick="onClickSettings"/>
+
+  <item
+    android:id="@+id/action_clear"
+    android:orderInCategory="100"
+    android:title="@string/clear"
+    app:showAsAction="never"
+    android:onClick="onClickClear"/>
+
+  <item
+    android:id="@+id/action_apply_calibration"
+    android:orderInCategory="100"
+    android:title="@string/apply_calibration"
+    app:showAsAction="never"
+    android:checkable="true"
+    android:onClick="onClickApplyCalibration"/>
+
+  <item
+    android:id="@+id/action_calibrate"
+    android:orderInCategory="100"
+    android:title="@string/calibrate"
+    app:showAsAction="never"
+    android:onClick="onClickCalibrate"/>
+
+  <item
+    android:id="@+id/action_reset_pll"
+    android:orderInCategory="100"
+    android:title="@string/reset_pll"
+    app:showAsAction="never"
+    android:onClick="onClickResetPll"/>
+
+  <item
+    android:id="@id/about_info"
+    android:orderInCategory="100"
+    android:title="@string/about"
+    app:showAsAction="never"
+    android:onClick="onClickAbout"/>
+
+</menu>

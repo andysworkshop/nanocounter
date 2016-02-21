@@ -1,0 +1,7 @@
+vhdl work "../constants.vhdl"
+vhdl work "../equal_precision_counter.vhdl"
+vhdl work "../spi_interface.vhdl"
+vhdl work "../main.vhdl"
+vhdl work "../pdchain.vhdl"
+vhdl work "../pdivtwo.vhdl"
+vhdl work "main_tb.vhdl"

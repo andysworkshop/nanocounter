@@ -1,0 +1,31 @@
+NET "count_start" LOC = P55;
+NET "ref_clk" LOC = P36;
+NET "sample_clk" LOC = P39;
+NET "done_counting" LOC = P62;
+NET "spi_clk" LOC = P87;
+NET "spi_mosi" LOC = P65;
+NET "spi_miso" LOC = P64;
+NET "spi_ncs" LOC = P63;
+NET "debug" LOC = P1;
+
+NET "count_start" IOSTANDARD = LVCMOS33;
+NET "ref_clk" IOSTANDARD = LVCMOS33;
+NET "sample_clk" IOSTANDARD = LVCMOS33;
+NET "done_counting" IOSTANDARD = LVCMOS33;
+NET "spi_clk" IOSTANDARD = LVCMOS33;
+NET "spi_mosi" IOSTANDARD = LVCMOS33;
+NET "spi_miso" IOSTANDARD = LVCMOS33;
+NET "spi_ncs" IOSTANDARD = LVCMOS33;
+NET "debug" IOSTANDARD = LVCMOS33;
+
+NET "ref_clk" TNM_NET = "ref_clk";
+TIMESPEC TS_ref_clk = PERIOD "ref_clk" 5 ns HIGH 50 %;
+
+NET "inst_equal_precision_counter/ref_clk_div" TNM_NET = "inst_equal_precision_counter/ref_clk_div";
+TIMESPEC TS_ref_clk_div = PERIOD "inst_equal_precision_counter/ref_clk_div" 10 ns HIGH 50 %;
+
+NET "sample_clk" TNM_NET = "sample_clk";
+TIMESPEC TS_sample_clk = PERIOD "sample_clk" 20 ns HIGH 50 %;
+
+NET "spi_clk" TNM_NET = "spi_clk";
+TIMESPEC TS_spi_clk = PERIOD "spi_clk" 20 ns HIGH 50 %;

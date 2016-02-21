@@ -1,0 +1,115 @@
+<resources>
+  <string name="app_name">Nanocounter</string>
+  <string name="action_settings">Settings</string>
+
+  <string name="connecting_title">Connecting to Nanocounter</string>
+
+  <string name="internal_10MHz">Internal 10MHz</string>
+  <string name="external_10MHz">External 10MHz</string>
+
+  <string name="filter_full">Full</string>
+  <string name="filter_500M">500MHz</string>
+  <string name="filter_160M">160MHz</string>
+  <string name="filter_50M">50MHz</string>
+
+  <string name="not_applicable">Not applicable</string>
+  <string name="clear">Clear</string>
+  <string name="reset_pll">Reset PLL</string>
+  <string name="about">About</string>
+  <string name="confirm">Confirm</string>
+  <string name="really_clear">Do you really want to clear the statistics?</string>
+  <string name="really_reset">Do you really want to reset and recalibrate the PLL?</string>
+  <string name="title_activity_settings">Settings</string>
+
+  <string name="calibrate">Calibrate</string>
+  <string name="apply_calibration">Apply calibration</string>
+
+  <!-- display settings -->
+
+  <string name="pref_header_display">Display</string>
+
+  <string name="pref_title_digit_groups">Digit grouping</string>
+  <string name="pref_description_digit_groups">Large numbers have separators between 3-digit groups</string>
+  <string name="pref_title_frequency_decimal_places">Frequency decimal places</string>
+  <string name="pref_title_frequency_units">Frequency units</string>
+  <string name="pref_title_ideal_frequency_flag">Ideal frequency</string>
+  <string name="pref_description_ideal_frequency_flag">Show offset from ideal frequency</string>
+  <string name="pref_title_ideal_frequency">Ideal frequency in Hz</string>
+  <string name="pref_title_ideal_frequency_source">Ideal frequency tracking</string>
+  <string name="pref_title_max_chart_values">Maximum chart values</string>
+
+  <string-array name="pref_frequency_divider_titles">
+    <item>Hz</item>
+    <item>kHz</item>
+    <item>MHz</item>
+  </string-array>
+  <string-array name="pref_frequency_divider_values">
+    <item>1</item>
+    <item>1000</item>
+    <item>1000000</item>
+  </string-array>
+
+  <string-array name="pref_ideal_frequency_source_titles">
+    <item>Minimum and maximum</item>
+    <item>Minimum</item>
+    <item>Maximum</item>
+    <item>Average</item>
+    <item>Most recent</item>
+  </string-array>
+  <string-array name="pref_ideal_frequency_source_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+  </string-array>
+
+  <!-- nanocounter settings -->
+
+  <string name="pref_title_bluetooth_id">Bluetooth ID</string>
+  <string name="pref_header_nanocounter">Nanocounter</string>
+  <string name="pref_title_frequency_gate_counter">Gate seconds</string>
+
+  <string name="pref_title_reference_frequency_source">Reference frequency source</string>
+  <string-array name="pref_reference_frequency_titles">
+    <item>Internal 10MHz</item>
+    <item>External 10MHz</item>
+  </string-array>
+  <string-array name="pref_reference_frequency_values">
+    <item>0</item>
+    <item>1</item>
+  </string-array>
+
+  <string name="pref_title_reference_filter_bandwidth">External reference filter</string>
+  <string name="pref_title_sample_filter_bandwidth">Sample frequency filter</string>
+  <string-array name="pref_filter_bandwidth_titles">
+    <item>Full (1.2GHz)</item>
+    <item>500MHz</item>
+    <item>160MHz</item>
+    <item>50MHz</item>
+  </string-array>
+  <string-array name="pref_filter_bandwidth_values">
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+  </string-array>
+
+  <!-- the about box -->
+
+  <string name="about_info"><![CDATA[
+<h1>Version 1</h1><br/>
+<p>
+<em>An <a href=\"http://andybrown.me.uk\">Andy\'s Workshop</a> production.</em>
+</p>
+<p>
+Thank you for trying Nanocounter. This app is used to control the accompanying Nanocounter
+ hardware frequency counter and will not function without it.</p>
+<p>
+If you\'re interested in open source hardware projects then please visit the <a href=\"http://andybrown.me.uk\">Andy\'s Workshop</a>
+website where you can find the write-up for Nanocounter and many more projects like it.</p>
+
+]]></string>
+  <string name="title_activity_about">AboutActivity</string>
+
+</resources>

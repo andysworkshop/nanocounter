@@ -1,0 +1,15 @@
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- These settings headers are only used on tablets. -->
+
+  <header
+    android:fragment="uk.me.andybrown.nanocounter.SettingsActivity$DisplayPreferenceFragment"
+    android:icon="@drawable/ic_info_black_24dp"
+    android:title="@string/pref_header_display"/>
+
+  <header
+    android:fragment="uk.me.andybrown.nanocounter.SettingsActivity$NanocounterPreferenceFragment"
+    android:icon="@drawable/gadget_black_24dp"
+    android:title="@string/pref_header_nanocounter"/>
+
+</preference-headers>
