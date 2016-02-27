@@ -12,7 +12,7 @@ env=env.Clone(BIT=main_bit)
 
 # this project name and location
 
-PROJECT = "awfcounter"
+PROJECT = "nanocounter"
 MYDIR = "stm32f072"
 
 # collect the source files
