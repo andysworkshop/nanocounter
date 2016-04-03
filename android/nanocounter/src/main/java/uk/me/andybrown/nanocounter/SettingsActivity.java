@@ -17,6 +17,9 @@ import android.support.v7.app.ActionBar;
 import android.text.InputFilter;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -35,9 +38,6 @@ import java.util.List;
 
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-  protected BroadcastReceiver _broadcastReceiver;
-
-
   /*
    * A preference value change listener that updates the preference's summary
    * to reflect its new value.
@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
       String stringValue=value.toString();
 
       if(preference instanceof ListPreference) {
+
         // For list preferences, look up the correct display value in the preference's 'entries' list.
 
         ListPreference listPreference=(ListPreference)preference;
@@ -59,9 +60,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // set the summary to reflect the new value.
 
         preference.setSummary(index>=0 ? listPreference.getEntries()[index] : null);
-      }
-      else
+      } else
         preference.setSummary(stringValue);
+
+      // validate the frequency decimal places
+      
+      if(preference.getKey().equals("FREQUENCY_DECIMAL_PLACES")) {
+
+        if(!StringUtils.isNumeric((String)value)) {
+          Toast.makeText(preference.getContext(),"Please enter a number",Toast.LENGTH_LONG).show();
+          return false;
+        }
+      }
 
       return true;
     }
@@ -80,6 +90,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     return super.onOptionsItemSelected(item);
   }
+
 
   /*
    * Helper method to determine if the device has an extra-large screen. For
@@ -102,7 +113,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
    */
 
   private static void bindPreferenceSummaryToValue(Preference preference) {
+
     // Set the listener to watch for value changes.
+
     preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
     // Trigger the listener immediately with the preference's current value.

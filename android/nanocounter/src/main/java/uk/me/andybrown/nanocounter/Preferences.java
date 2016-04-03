@@ -7,6 +7,8 @@ package uk.me.andybrown.nanocounter;
 import android.content.Context;
 import android.preference.PreferenceManager;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.math.BigDecimal;
 
 
@@ -138,9 +140,15 @@ public class Preferences {
 
   public static int getFrequencyDecimalPlaces(Context context) {
 
-    return Integer.parseInt(PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(FREQUENCY_DECIMAL_PLACES,DEFAULT_FREQUENCY_DECIMAL_PLACES)
-    );
+    String prefsVal=PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(FREQUENCY_DECIMAL_PLACES,DEFAULT_FREQUENCY_DECIMAL_PLACES);
+
+    // extra safety
+
+    if(StringUtils.isNumeric(prefsVal))
+      return Integer.parseInt(prefsVal);
+    else
+      return Integer.parseInt(DEFAULT_FREQUENCY_DECIMAL_PLACES);
   }
 
 

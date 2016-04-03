@@ -31,4 +31,5 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.android.support:support-v4:22.2.1'
     compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
+    compile 'org.apache.commons:commons-lang3:3.1'
 }
