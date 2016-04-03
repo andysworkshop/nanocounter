@@ -24,6 +24,9 @@
   <string name="calibrate">Calibrate</string>
   <string name="apply_calibration">Apply calibration</string>
 
+  <string name="reset_stats">Reset statistics?</string>
+  <string name="reset_stats_msg">The ideal frequency has changed, do you want to clear the statistics?</string>
+
   <!-- display settings -->
 
   <string name="pref_header_display">Display</string>

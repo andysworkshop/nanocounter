@@ -361,6 +361,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
           _service.addWorkItem(new SetReferenceFilterWorkItem(_service,Preferences.getSampleFilter(MainActivity.this)));
           fillSampleFilter();
         }
+        else if(Preferences.IDEAL_FREQUENCY.equals(key)) {
+          offerClearStatistics();
+        }
       }
     };
 
@@ -1436,5 +1439,42 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
       Log.e(LOGGER,ex.toString());
       Toast.makeText(this,ex.getMessage(),Toast.LENGTH_SHORT).show();
     }
+  }
+
+
+  /*
+   * The ideal frequency has changed, offer to clear the statistics
+   */
+
+  protected void offerClearStatistics() {
+
+    AlertDialog dialog;
+    AlertDialog.Builder builder;
+
+    // build the dialog
+
+    builder=new AlertDialog.Builder(this);
+    builder.setTitle(R.string.reset_stats);
+    builder.setMessage(R.string.reset_stats_msg);
+
+    // ok button
+
+    builder.setPositiveButton(android.R.string.yes,new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog,int item) {
+        resetStatistics();
+        dialog.dismiss();
+      }
+    });
+
+    // cancel button
+
+    builder.setNegativeButton(android.R.string.no,new DialogInterface.OnClickListener() {
+      public void onClick(DialogInterface dialog,int item) {
+        dialog.dismiss();
+      }
+    });
+
+    dialog=builder.create();
+    dialog.show();
   }
 }
