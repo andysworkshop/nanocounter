@@ -15,6 +15,12 @@
     android:singleLine="true"
     android:title="@string/pref_title_frequency_decimal_places"/>
 
+  <SwitchPreference
+    android:defaultValue="false"
+    android:key="FREQUENCY_FIXED_DECIMAL_PLACES_FLAG"
+    android:summary="@string/pref_description_fixed_decimal_places_flag"
+    android:title="@string/pref_title_fixed_decimal_places_flag"/>
+
   <ListPreference
     android:defaultValue="1"
     android:entries="@array/pref_frequency_divider_titles"

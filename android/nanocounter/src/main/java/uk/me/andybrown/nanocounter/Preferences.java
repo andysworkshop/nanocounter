@@ -41,7 +41,7 @@ public class Preferences {
   protected static final String IDEAL_FREQUENCY_SOURCE = "IDEAL_FREQUENCY_SOURCE";
   protected static final String MAX_CHART_VALUES = "MAX_CHART_VALUES";
   protected static final String APPLY_CALIBRATION_FLAG = "APPLY_CALIBRATION";
-
+  protected static final String FREQUENCY_FIXED_DECIMAL_PLACES_FLAG = "FREQUENCY_FIXED_DECIMAL_PLACES_FLAG";
 
   /*
    * Preference defaults
@@ -61,7 +61,7 @@ public class Preferences {
   protected static final String DEFAULT_IDEAL_FREQUENCY_SOURCE = "4";
   protected static final String DEFAULT_MAX_CHART_VALUES = "3600";
   protected static final boolean DEFAULT_APPLY_CALIBRATION_FLAG = true;
-
+  protected static final boolean DEFAULT_FREQUENCY_FIXED_DECIMAL_PLACES_FLAG = false;
 
   /*
    * Get the bluetooth device id
@@ -73,6 +73,17 @@ public class Preferences {
 
     return PreferenceManager.getDefaultSharedPreferences(context)
            .getString(BLUETOOTH_ID,DEFAULT_BLUETOOTH_ID);
+  }
+
+
+  /*
+   * Get the fixed decimal places flag
+   */
+
+  public static boolean getFrequencyFixedDecimalPlacesFlag(Context context) {
+
+    return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(FREQUENCY_FIXED_DECIMAL_PLACES_FLAG,DEFAULT_FREQUENCY_FIXED_DECIMAL_PLACES_FLAG);
   }
 
 

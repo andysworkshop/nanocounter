@@ -1033,8 +1033,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     else
       _frequencyFormatter.setGroupingUsed(false);
 
+    int decimalPlaces=Preferences.getFrequencyDecimalPlaces(this);
+
     _frequencyFormatter.setRoundingMode(RoundingMode.HALF_UP);
-    _frequencyFormatter.setMaximumFractionDigits(Preferences.getFrequencyDecimalPlaces(this));
+    _frequencyFormatter.setMaximumFractionDigits(decimalPlaces);
+
+    if(Preferences.getFrequencyFixedDecimalPlacesFlag(this))
+      _frequencyFormatter.setMinimumFractionDigits(decimalPlaces);
   }
 
 
