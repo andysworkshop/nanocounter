@@ -7,9 +7,8 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import uk.me.andybrown.nanocounter.Preferences;
+import uk.me.andybrown.nanocounter.FrequencySampleData;
 
 
 /*
@@ -24,7 +23,7 @@ public class GetMeasuredFrequencyResponse extends CommandResponse {
   public static final int E_PLL_NOT_LOCKED =2;
 
   protected int _sampleSequenceNumber;
-  protected BigDecimal _frequency;
+  protected FrequencySampleData _frequencySampleData;
   protected int _temperature;
 
 
@@ -49,6 +48,8 @@ public class GetMeasuredFrequencyResponse extends CommandResponse {
     gateCounter=readInt32(is);
     _temperature=readInt16(is);
 
+    // set up the frequency data
+
     Log.d(LOGGER,"ref freq/ref cnt/sam cnt/gate cnt = "+referenceFrequency+"/"+referenceCounter+"/"+sampleCounter+"/"+gateCounter);
 
     // decode any error
@@ -56,18 +57,19 @@ public class GetMeasuredFrequencyResponse extends CommandResponse {
     switch(_responseCode) {
 
       case 0:
-        _frequency=BigDecimal.valueOf(sampleCounter*referenceFrequency).setScale(Preferences.DEFAULT_SCALE);
-        _frequency=_frequency.divide(BigDecimal.valueOf(referenceCounter),RoundingMode.HALF_UP);
+        _frequencySampleData=new FrequencySampleData(referenceCounter,referenceFrequency,sampleCounter,gateCounter);
         _errorText=null;
         break;
 
       case E_NO_COUNTERS:
         _errorText="Counters not received from FPGA";
+        _frequencySampleData=FrequencySampleData.error();
         Log.i(LOGGER,_errorText);
         break;
 
       case E_PLL_NOT_LOCKED:
         _errorText="PLL not locked";
+        _frequencySampleData=FrequencySampleData.error();
         Log.e(LOGGER,_errorText);
         break;
     }
@@ -93,10 +95,13 @@ public class GetMeasuredFrequencyResponse extends CommandResponse {
    */
 
   public GetMeasuredFrequencyResponse(Parcel in) {
+
     super(in);
+
     _sampleSequenceNumber=in.readInt();
-    _frequency=new BigDecimal(in.readString());
     _temperature=in.readInt();
+
+    _frequencySampleData=new FrequencySampleData(in);
   }
 
 
@@ -106,19 +111,22 @@ public class GetMeasuredFrequencyResponse extends CommandResponse {
 
   @Override
   public void writeToParcel(Parcel out,int flags) {
+
     super.writeToParcel(out,flags);
+
     out.writeInt(_sampleSequenceNumber);
-    out.writeString(_frequency.toPlainString());
     out.writeInt(_temperature);
+
+    _frequencySampleData.writeToParcel(out);
   }
 
 
   /*
-   * Get the frequency
+   * Get the frequency sample data
    */
 
-  public BigDecimal getFrequency() {
-    return _frequency;
+  public FrequencySampleData getFrequencySampleData() {
+    return _frequencySampleData;
   }
 
 

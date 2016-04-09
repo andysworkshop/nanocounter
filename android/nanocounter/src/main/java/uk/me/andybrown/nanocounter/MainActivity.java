@@ -89,8 +89,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
   protected SensorManager _sensorManager;
   protected Sensor _temperatureSensor;
   protected float _lastAmbientTemperature;
-  protected BigDecimal _lastFrequency;
-  protected BigDecimal _lastUncalibratedFrequency;
+  protected FrequencySampleData _lastFrequencyData;
   protected BigDecimal _sumFrequency;
   protected BigDecimal _minimumFrequency;
   protected BigDecimal _maximumFrequency;
@@ -644,15 +643,14 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     // get the measured frequency and apply calibration if using the onboard reference
     // and the 'apply calibration' preference is set
 
-    _lastUncalibratedFrequency=response.getFrequency();
-
     if(_activeCalibration!=null &&
             Preferences.getReferenceFrequencySource(this)==ReferenceFrequencySource.INTERNAL_10M &&
             Preferences.getApplyCalibration(this)) {
-      f=_lastUncalibratedFrequency.add(_activeCalibration.getOffset());
+
+      f=response.getFrequencySampleData().getCalibratedSampleFrequency(_activeCalibration.getOffset());
     }
     else {
-      f=_lastUncalibratedFrequency;
+      f=response.getFrequencySampleData().getSampleFrequency();
     }
 
     // add to the UI
@@ -679,14 +677,18 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         ((TextView)findViewById(R.id.frequency_text)).setText(frequencyAndUnits[0]);
         ((TextView)findViewById(R.id.frequency_units)).setText(frequencyAndUnits[1]);
 
-        if(_lastFrequency!=null) {
+        if(_lastFrequencyData!=null) {
 
           places=Preferences.getFrequencyDecimalPlaces(MainActivity.this);
 
           // update the last change icon at the desired scale
 
-          compare=f.setScale(places,RoundingMode.HALF_UP).compareTo(_lastFrequency.setScale(places,RoundingMode.HALF_UP));
+          compare=f.setScale(places,RoundingMode.HALF_UP)
+                  .compareTo(_lastFrequencyData.getSampleFrequency()
+                          .setScale(places,RoundingMode.HALF_UP));
+
           duration=((double)Preferences.getGateCounter(MainActivity.this)*500.0)/(double)Preferences.getReferenceFrequency(MainActivity.this);
+
           if(duration>500)
             duration=500;
 
@@ -699,7 +701,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         // store references to last values
 
         _lastSampleSequenceNumber=response.getSampleSequenceNumber();
-        _lastFrequency=f;
+        _lastFrequencyData=response.getFrequencySampleData();
 
         // update the temperature
 
@@ -752,7 +754,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
       // create the data entry
 
-      e=new Entry(_lastFrequency.floatValue(),set.getEntryCount());
+      e=new Entry(_lastFrequencyData.getSampleFrequency().floatValue(),set.getEntryCount());
 
       // add to the chart
 
@@ -854,9 +856,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             break;
 
           default:
-            ppm_high=calculatePpm(_lastFrequency,targetFrequency);
+            ppm_high=calculatePpm(_lastFrequencyData.getSampleFrequency(),targetFrequency);
             str=String.format("%s",formatPpm(ppm_high));
-            comp=calculateCompensation(_lastFrequency,targetFrequency);
+            comp=calculateCompensation(_lastFrequencyData.getSampleFrequency(),targetFrequency);
             break;
         }
 
@@ -1277,7 +1279,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     menu.findItem(R.id.action_calibrate).setEnabled(
             findViewById(R.id.calibration_frame).getVisibility()==View.GONE && _calibrationArray.isReadCompleted());
 
-
     canApplyCalibration=_activeCalibration!=null && Preferences.getReferenceFrequencySource(this)==ReferenceFrequencySource.INTERNAL_10M;
 
     menu.findItem(R.id.action_apply_calibration).setEnabled(canApplyCalibration);
@@ -1370,16 +1371,17 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
 
   public void onClickAutoCalibration(View view) {
 
-    BigDecimal ideal,diff;
     String[] s;
 
     if(_sampleCount>0) {
 
-      ideal=new BigDecimal(Preferences.getIdealFrequency(this)).setScale(Preferences.DEFAULT_SCALE);
-      diff=ideal.subtract(_lastUncalibratedFrequency);
+      // the reference frequency will be somewhere close to 200,000,000. We store the
+      // offset from that as the calibration value
+
+      BigDecimal referenceFrequencyOffset=_lastFrequencyData.getOnboardReferenceFrequency().subtract(Constants.TWOHUNDREDM);
 
       s=new String[2];
-      formatFrequency(diff,s);
+      formatFrequency(referenceFrequencyOffset,s);
 
       ((EditText)findViewById(R.id.calibrate_text)).setText(s[0]);
     }

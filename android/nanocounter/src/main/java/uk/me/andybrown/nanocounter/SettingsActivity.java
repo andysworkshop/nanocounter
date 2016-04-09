@@ -64,7 +64,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         preference.setSummary(stringValue);
 
       // validate the frequency decimal places
-      
+
       if(preference.getKey().equals("FREQUENCY_DECIMAL_PLACES")) {
 
         if(!StringUtils.isNumeric((String)value)) {

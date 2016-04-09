@@ -51,17 +51,6 @@ public class WorkQueue implements Runnable {
   }
 
 
-  public void stop() {
-
-    Log.i(LOGGER,"Stopping work queue");
-
-    if(_thread!=null) {
-      _thread.interrupt();
-      _thread=null;
-    }
-  }
-
-
   /*
    * Add a new item
    */
